@@ -62,6 +62,7 @@ window.onload = function () {
 	}
 
 	function init() {
+		clearInterval(timerID);
 		randomNumbers = [];
 		countToWin = countRandomNumbers;
 		countToWinLabel.textContent = countToWin;
