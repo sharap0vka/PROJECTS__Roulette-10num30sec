@@ -1,0 +1,47 @@
+* {
+	box-sizing: border-box;
+}
+
+.hidden {
+	display: none;
+}
+
+td {
+	padding: 20px;
+	border: 1px solid #000;
+}
+
+td:hover {
+	background-color: #eee;
+}
+
+#app {
+	width: 100%;
+	margin: 0 auto;
+}
+
+table {
+	margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+	text-align: center;
+}
+
+h2 span {
+	color: blue;
+}
+
+.checked {
+	color: white;
+}
+
+.restart {
+	font-size: 50px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	cursor: pointer;
+}
