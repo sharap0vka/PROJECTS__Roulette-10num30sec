@@ -11,6 +11,37 @@ window.onload = function () {
 		countRandomNumbers = 10,
 		countToWin;
 
+	function startGame() {
+		randomNumbers = [];
+		countToWin = countRandomNumbers;
+		getRandomNumbers(countRandomNumbers, 100);
+		refreshCountToWinLabel();
+		timer = 30;
+		gameOver = 0;
+		app.innerHTML = createTable(10);
+		onAddEventListeners();
+		timerID = setInterval(() => {
+			if (timer == 0 && countToWin > 0) {
+				stopGame();
+			}
+			timerLabel.textContent = timer--;
+		}, 1000);
+	}
+
+	function stopGame() {
+		gameOver = 1;
+		clearInterval(timerID);
+	}
+
+	function restartGame() {
+		stopGame();
+		startGame();
+	}
+
+	function refreshCountToWinLabel() {
+		countToWinLabel.textContent = countToWin;
+	}
+
 	function getRandom(max) {
 		return Math.trunc(Math.random() * max) + 1;
 	}
@@ -49,10 +80,9 @@ window.onload = function () {
 					if (randomNumbers.includes(+e.target.textContent)) {
 						setState(e.target, 'green');
 						if (--countToWin == 0) {
-							gameOver = 1;
-							clearInterval(timerID);
+							stopGame();
 						}
-						countToWinLabel.textContent = countToWin;
+						refreshCountToWinLabel();
 					} else {
 						setState(e.target, 'red');
 					}
@@ -62,29 +92,12 @@ window.onload = function () {
 	}
 
 	function init() {
-		clearInterval(timerID);
-		randomNumbers = [];
-		countToWin = countRandomNumbers;
-		countToWinLabel.textContent = countToWin;
-		timer = 30;
-		gameOver = 0;
-		app.innerHTML = createTable(10);
-		getRandomNumbers(countRandomNumbers, 100);
-		onAddEventListeners();
-		timerID = setInterval(() => {
-			if (timer == 0 && countToWin > 0) {
-				gameOver = 1;
-				clearInterval(timerID);
-			}
-			timerLabel.textContent = timer--;
-		}, 1000);
+		startGame();
 		console.log(randomNumbers);
 	}
 
 	init();
-
 	restart.addEventListener('click', () => {
-		gameOver = 1;
-		init();
+		restartGame();
 	});
 };
